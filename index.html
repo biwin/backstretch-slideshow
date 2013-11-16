@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<!--[if lt IE 7 ]><html class="ie ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]><html class="ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]><html class="ie ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!--><html lang="en"> <!--<![endif]-->
+<head>
+	<!-- Basic Page Needs
+  ================================================== -->
+	<meta charset="utf-8">
+	<title>BACKSTRETCH SLIDESHOW</title>
+	<meta name="description" content="">
+	<meta name="author" content="">
+
+	<!-- Mobile Specific Metas
+  ================================================== -->
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+	<!-- JS/CSS
+  ================================================== -->
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+	<script src="jquery.backstretch.js"></script>
+	<!--[if lt IE 9]>
+		<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+
+	<!-- https://github.com/necolas/normalize.css/blob/master/normalize.css -->
+	<!-- <link rel="stylesheet" href="css/normalize.css"> -->
+	<!-- <link rel="stylesheet" href="stylesheets/style.css"> -->
+	<link rel="stylesheet" href="css/animate.min.css">
+	<link rel="stylesheet" href="css/font-awesome.min.css">
+	<link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600,700,900,300italic,400italic,600italic' rel='stylesheet' type='text/css'>
+
+<style type="text/css">
+	/* Base Styles*/
+
+	body {
+		font-family: 'Source Sans Pro', sans-serif;
+		color: #000;
+		background-color: #fff;
+		margin: 0;
+		padding: 0;
+	}
+
+	.wrap {
+		margin: 0 auto;
+	}
+
+	#demo {
+		height: 450px;
+		width: 100%;
+		position: relative;
+		overflow: hidden;
+	}
+	/* Smaller than standard 960 (devices and browsers) */
+	@media only screen and (max-width: 959px) {
+		#demo {height: 350px;}
+	}
+
+	.backstretch-caption {
+		position: absolute;
+		font-family: 'Source Sans Pro', sans-serif;
+		font-weight: 200;
+		display: block;
+		width: 40%;
+		bottom: 0;
+		right: 0;
+		background: hsla(0, 0%, 0%, 0.5);
+		padding: 12px;
+		font-size: 1.25em;
+		color: #fff;
+		display: none;
+		border-radius: 2px 2px 0px 0px;
+	}
+
+	#backstretch-controls {
+		position: absolute;
+		bottom: 10px;
+		left: 10px;
+		padding: 5px;
+		background: hsla(0, 0%, 0%, 0.5);
+		border-radius:4px;
+	}
+	#backstretch-controls a {
+		color: #fff;
+		text-decoration: none;
+		padding: 2px 4px;
+		font-size: 16px;
+	}
+	#backstretch-controls a.slide-pause {
+		font-size: 12px;
+		position: relative;
+		top: -3px;
+	}
+	#backstretch-controls a:hover {
+		color: red;
+	}
+
+	/* Smaller than standard 960 (devices and browsers) */
+	@media only screen and (max-width: 959px) {}
+
+	/* Tablet Portrait size to standard 960 (devices and browsers) */
+	@media only screen and (min-width: 768px) and (max-width: 959px) {}
+
+	/* All Mobile Sizes (devices and browser) */
+	@media only screen and (max-width: 767px) {}
+
+	/* Mobile Landscape Size to Tablet Portrait (devices and browsers) */
+	@media only screen and (min-width: 480px) and (max-width: 767px) {}
+
+	/* Mobile Portrait Size to Mobile Landscape Size (devices and browsers) */
+	@media only screen and (max-width: 479px) {}
+
+
+</style>
+
+<script type="text/javascript">
+
+	jQuery(document).ready(function($){
+
+
+			var items = [
+                { img: "images/tumblr_mvyx8txG0p1st5lhmo1_1280.jpg", caption: "This is an iPhone."},
+                { img: "images/tumblr_muui9yjMVc1st5lhmo1_1280.jpg", caption: "This is a sandy desert."},
+                { img: "images/tumblr_mufr3eEwKX1st5lhmo1_1280.jpg", caption: "This is rain on the ocean."}
+            ];
+
+            var options = {
+                fade: 700,
+                duration: 4000
+            };
+
+            var images = $.map(items, function(i) { return i.img; });
+
+            var slideshow = $("#demo").backstretch(images,options);
+
+            $(window).on("backstretch.show", function(e, instance) {
+                var newCaption = items[instance.index].caption;
+                $(".backstretch-caption").text( newCaption ).show().addClass('animated fadeInUp');
+            });
+            $(window).on("backstretch.before", function(e, instance) {
+            	$(".backstretch-caption").hide();
+            });
+
+            $(".slide-pause").click(function(e){
+            	e.preventDefault();
+                slideshow.data('backstretch').pause();
+            });
+			$(".slide-prev").click(function(e) {
+				e.preventDefault();
+				slideshow.data('backstretch').prev();
+                $(".backstretch-caption").hide();
+			});
+			$(".slide-next").click(function(e) {
+				e.preventDefault();
+				slideshow.data('backstretch').next();
+                $(".backstretch-caption").hide();
+			});
+
+
+	});
+
+</script>
+
+</head>
+<body>
+	<div class="wrap">
+		<div class="container">
+			<div class="sixteen columns">
+			<div id="demo">
+				<div class="backstretch-caption"></div>
+				<div id="backstretch-controls">
+					<a class="slide-prev btn" href="#"><i class="fa fa-chevron-left"></i></a>
+					<a class="slide-pause btn icon-pause" href="#"><strong>| |</strong></a>
+					<a class="slide-next btn" href="#"><i class="fa fa-chevron-right"></i></a>
+				</div>
+			</div>
+			</div>
+		</div> <!-- /container -->
+	</div> <!-- /wrap -->
+</body>
+</html>
